@@ -21,8 +21,8 @@ Run Locally:
 
 Test Plan:
 1. Pagination - make sure "Previous" and "Next" are displayed properly
-2. Search (by name) - enter character name to search corresponding data
-3. Details (modal) - make sure "Home World" info is displayed 
+2. Search function (by name) - enter character name to search corresponding data
+3. Details button (modal) - make sure "Home World" info is displayed 
 4. API
  - Get http://localhost:3000/
  - Get http://localhost:3000/page/:id (for example, http://localhost:3000/page/5)
