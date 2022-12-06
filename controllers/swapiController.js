@@ -1,4 +1,5 @@
 const urlUtil = require('../utils/urlUtil');
+const swapiModel = require('../models/swapiModel');
 const extraModel = require('../models/extraModel');
 const axios = require('axios');
 
@@ -7,67 +8,57 @@ const config = {
 };
 
 const swapiController = {
-    get: (req, res) => {
+    get: async (req, res) => {
         let url = urlUtil.appendUrlParameter(config.baseUrl, 'page', 1);
-        axios.get(url)
-            .then(response => {
-                const next = urlUtil.getUrlParameter(response.data.next, 'page');
-                res.render('index', { 
-                    data: response.data, 
-                    previousPage: null,
-                    currentPage: 1,
-                    nextPage: next
-                })
-            })
-            .catch(error => console.error(error)); 
+        let response = await swapiModel.get(url);
+
+        res.render('index', { 
+            data: response, 
+            previousPage: null,
+            currentPage: 1,
+            nextPage: urlUtil.getUrlParameter(response.next, 'page')
+        });
     },
-    getByPageId: (req, res) => {
+    getByPageId: async (req, res) => {
         let url = urlUtil.appendUrlParameter(config.baseUrl, 'page', req.params.id);
-        axios.get(url)
-            .then(response => {
-                res.render('index', { 
-                    data: response.data, 
-                    previousPage: urlUtil.getUrlParameter(response.data.previous, 'page'), 
-                    currentPage: req.params.id,
-                    nextPage: urlUtil.getUrlParameter(response.data.next, 'page') 
-                })
-            })
-            .catch(error => console.error(error));
+        let response = await swapiModel.getByPageId(url);
+
+        res.render('index', { 
+            data: response, 
+            previousPage: urlUtil.getUrlParameter(response.previous, 'page'), 
+            currentPage: req.params.id,
+            nextPage: urlUtil.getUrlParameter(response.data.next, 'page') 
+        })
     },
-    getByName: (req, res) => {
+    getByName: async (req, res) => {
         let url = urlUtil.appendUrlParameter(config.baseUrl, 'search', req.query.name);
-        axios.get(url)
-            .then(response => {
-                const extra = extraModel.getByName(req.query.name);
-                if (extra != null) {
-                    response.data.count = parseInt(response.data.count) + 1;
-                    response.data.results.push(extra);
-                }
-                    
-                res.render('search', { 
-                    data: response.data, 
-                    previousPage: urlUtil.getUrlParameter(response.data.previous, 'page'),
-                    currentPage: 1,
-                    nextPage: urlUtil.getUrlParameter(response.data.next, 'page'),
-                    name: req.query.name
-                })
-            })
-            .catch(error => console.error(error));
+        let response = await swapiModel.getByName(url);
+        let extra = extraModel.getByName(req.query.name);
+        if (extra != null) {
+            response.count = parseInt(response.count) + 1;
+            response.results.push(extra);
+        }
+
+        res.render('search', { 
+            data: response, 
+            previousPage: urlUtil.getUrlParameter(response.previous, 'page'),
+            currentPage: 1,
+            nextPage: urlUtil.getUrlParameter(response.next, 'page'),
+            name: req.query.name
+        })
     },
-    getByNamePage: (req, res) => {
+    getByNamePage: async (req, res) => {
         let url = urlUtil.appendUrlParameter(config.baseUrl, 'search', req.params.name);
         url = urlUtil.appendUrlParameter(url, 'page', req.params.page);
-        axios.get(url)
-            .then(response => {
-                res.render('search', { 
-                    data: response.data, 
-                    previousPage: urlUtil.getUrlParameter(response.data.previous, 'page'), 
-                    currentPage: req.params.page,
-                    nextPage: urlUtil.getUrlParameter(response.data.next, 'page'),
-                    name: req.params.name
-                })
-            })
-            .catch(error => console.error(error));
+        let response = await swapiModel.getByNamePage(url);
+
+        res.render('search', { 
+            data: response, 
+            previousPage: urlUtil.getUrlParameter(response.previous, 'page'), 
+            currentPage: req.params.page,
+            nextPage: urlUtil.getUrlParameter(response.next, 'page'),
+            name: req.params.name
+        })
     }
 };
 
