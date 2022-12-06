@@ -1,7 +1,6 @@
 Welcome to the ASEC Project
 
-ASEC is web application that it provides a user interface to explore the characters of the Star Wars universe as well as the details related to each one of them such as movies
-where they appear, home world, race, etc.
+ASEC is web application that it provides a user interface to explore the characters of the Star Wars universe as well as the details related to each one of them such as movies where they appear, home world, race, etc.
 
 Tech Stack:
  - IDE: Visual Studio Code
