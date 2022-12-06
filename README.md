@@ -24,6 +24,11 @@ Test Plan:
 1. Pagination - make sure "Previous" and "Next" are displayed properly
 2. Search (by name) - enter character name to search corresponding data
 3. Details (modal) - make sure "Home World" info is displayed 
+4. API
+ - Get http://localhost:3000/
+ - Get http://localhost:3000/page/:id (for example, http://localhost:3000/page/5)
+ - Get http://localhost:3000/search?name=:name (for example, http://localhost:3000/search?name=r2)
+ - Get http://localhost:3000/name/:name/page/:page (for example, http://localhost:3000/name/d/page/2)
 
 Home Page
 ![image](https://user-images.githubusercontent.com/3538018/205907067-17bc0952-5403-463f-9b84-572d7bc5d737.png)
