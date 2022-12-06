@@ -16,8 +16,7 @@ Installation Guilde:
   - axios (npm install axios)
   
 Run Locally:
-1. Start the server, enter the following command in terminal:
-  - node app.js
+1. Start the server, enter the following command in terminal - node app.js
 2. Open http://localhost:3000 to view it in the browser
 
 Test Plan:
