@@ -4,19 +4,20 @@ ASEC is web application that it provides a user interface to explore the charact
 where they appear, home world, race, etc.
 
 Tech Stack:
+ - IDE: Visual Studio Code
  - Front-end: HTML, CSS, JavaScript, Bootstrap, jQuery
  - Back-end: Node.js, Express
 
 Installation Guilde:
 1. Install Node (https://nodejs.org/en/)
 2. Clone the github repository to a file location of your choice
-3. Install the following packages,
-  - express
-  - ejs
-  - axios
+3. Install the following packages:
+  - express (npm install express)
+  - ejs (npm install ejs)
+  - axios (npm install axios)
   
 Run Locally:
-1. enter the following command to start the server,
+1. Start the server, enter the following command in terminal:
   - node app.js
 2. Open http://localhost:3000 to view it in the browser
 
